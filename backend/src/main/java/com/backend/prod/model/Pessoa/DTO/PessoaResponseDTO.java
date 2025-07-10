@@ -1,8 +1,8 @@
-package com.backend.prod.model.Pessoa.DTO;
+package com.backend.prod.model.pessoa.DTO;
 
 import java.sql.Date;
 
-import com.backend.prod.model.Pessoa.Pessoa;
+import com.backend.prod.model.pessoa.Pessoa;
 
 public record PessoaResponseDTO(
     Long id,

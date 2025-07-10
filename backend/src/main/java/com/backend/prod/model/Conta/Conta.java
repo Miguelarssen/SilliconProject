@@ -1,11 +1,11 @@
-package com.backend.prod.model.Conta;
+package com.backend.prod.model.conta;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import com.backend.prod.model.Pessoa.Pessoa;
-import com.backend.prod.model.Conta.DTO.ContaAtualizaDTO;
-import com.backend.prod.model.Conta.DTO.ContaCadastroDTO;
+import com.backend.prod.model.conta.DTO.ContaBloqueiaDTO;
+import com.backend.prod.model.conta.DTO.ContaCadastroDTO;
+import com.backend.prod.model.pessoa.Pessoa;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "Contas")
+@Table(name = "conta")
 @Entity(name = "contas")
 @Getter
 @Setter
@@ -41,8 +41,8 @@ public class Conta{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    //@ManyToOne
-    //@JoinColumn(name = "pessoa_id")
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
     private BigDecimal saldo;
     private BigDecimal limiteSaqueDiario;
@@ -50,22 +50,8 @@ public class Conta{
     private Date dataCriacao;
     private Boolean ativo;
 
-    public void editaConta(@Valid ContaAtualizaDTO dados) {
-        if (dados.saldo() != null) {
-            this.saldo = dados.saldo();
-        }
-        if (dados.limiteSaqueDiario() != null) {
-            this.limiteSaqueDiario = dados.limiteSaqueDiario();
-        }
-        if (dados.tipoConta() != null) {
-            this.tipoConta = dados.tipoConta();
-        }
-        if (dados.dataCriacao() != null) {
-            this.dataCriacao = dados.dataCriacao();
-        }
-        if (dados.ativo() != null) {
-            this.ativo = dados.ativo();
-        }
+    public void bloqueia(@Valid ContaBloqueiaDTO dados) {
+        this.ativo = false;
     }
 }
 

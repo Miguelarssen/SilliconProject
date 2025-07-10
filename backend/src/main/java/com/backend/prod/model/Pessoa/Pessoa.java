@@ -1,9 +1,9 @@
-package com.backend.prod.model.Pessoa;
+package com.backend.prod.model.pessoa;
 
 import java.sql.Date;
 
-import com.backend.prod.model.Pessoa.DTO.PessoaAtualizaDTO;
-import com.backend.prod.model.Pessoa.DTO.PessoaCadastroDTO;
+import com.backend.prod.model.pessoa.DTO.PessoaAtualizaDTO;
+import com.backend.prod.model.pessoa.DTO.PessoaCadastroDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +17,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "Pessoas")
-@Entity(name = "pessoas")
+@Table(name = "pessoa")
+@Entity(name = "Pessoas")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -39,15 +39,15 @@ public class Pessoa {
     private Date nascimento;
 
     public void editaPessoa(@Valid PessoaAtualizaDTO dados) {
-    if (dados.nome() != null) {
-        this.nome = dados.nome();
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.cpf() != null) {
+            this.cpf = dados.cpf();
+        }
+        if (dados.nascimento() != null) {
+            this.nascimento = dados.nascimento();
+        }
     }
-    if (dados.cpf() != null) {
-        this.cpf = dados.cpf();
-    }
-    if (dados.nascimento() != null) {
-        this.nascimento = dados.nascimento();
-    }
-}
 
 }

@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import com.backend.prod.model.Conta.Conta;
+import com.backend.prod.model.conta.Conta;
 
 public interface ContaRepository extends JpaRepository<Conta, Long>, JpaSpecificationExecutor<Conta>{ 
     

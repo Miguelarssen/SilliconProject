@@ -1,9 +1,9 @@
-package com.backend.prod.model.Conta.DTO;
+package com.backend.prod.model.conta.DTO;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import com.backend.prod.model.Conta.Conta;
+import com.backend.prod.model.conta.Conta;
 
 public record ContaListagemDTO(
     Long id,

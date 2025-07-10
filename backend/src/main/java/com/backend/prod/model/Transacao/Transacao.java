@@ -1,11 +1,11 @@
-package com.backend.prod.model.Transacao;
+package com.backend.prod.model.transacao;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import com.backend.prod.model.Conta.Conta;
-import com.backend.prod.model.Transacao.DTO.TransacaoAtualizaDTO;
-import com.backend.prod.model.Transacao.DTO.TransacaoCadastroDTO;
+import com.backend.prod.model.conta.Conta;
+import com.backend.prod.model.transacao.DTO.TransacaoAtualizaDTO;
+import com.backend.prod.model.transacao.DTO.TransacaoCadastroDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Table(name = "Transacoes")
+@Table(name = "transacao")
 @Entity(name = "transacoes")
 @Getter
 @Setter

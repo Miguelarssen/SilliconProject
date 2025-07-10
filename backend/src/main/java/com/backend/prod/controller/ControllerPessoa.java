@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.backend.prod.model.Pessoa.DTO.PessoaListagemDTO;
-import com.backend.prod.model.Pessoa.DTO.PessoaResponseDTO;
-import com.backend.prod.model.Pessoa.Pessoa;
-import com.backend.prod.model.Pessoa.DTO.PessoaAtualizaDTO;
-import com.backend.prod.model.Pessoa.DTO.PessoaCadastroDTO;
-
+import com.backend.prod.model.pessoa.Pessoa;
+import com.backend.prod.model.pessoa.DTO.PessoaAtualizaDTO;
+import com.backend.prod.model.pessoa.DTO.PessoaCadastroDTO;
+import com.backend.prod.model.pessoa.DTO.PessoaListagemDTO;
+import com.backend.prod.model.pessoa.DTO.PessoaResponseDTO;
 import com.backend.prod.repository.PessoaRepository;
 
 import jakarta.transaction.Transactional;

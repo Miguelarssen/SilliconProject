@@ -1,9 +1,9 @@
-package com.backend.prod.model.Transacao.DTO;
+package com.backend.prod.model.transacao.DTO;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import com.backend.prod.model.Transacao.Transacao;
+import com.backend.prod.model.transacao.Transacao;
 
 public record TransacaoResponseDTO(
     Long id,
@@ -11,7 +11,7 @@ public record TransacaoResponseDTO(
     BigDecimal valor,
     Date dataTransacao
 ) {
-    public TransacaoResponseDTO(Transacao transacao){
+    public TransacaoResponseDTO(Transacao transacao) {
         this(
             transacao.getId(),
             transacao.getConta().getId(),

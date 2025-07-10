@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>22</java.version>
+		<flyway.version>10.15.0</flyway.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -64,8 +65,8 @@
 
 		<dependency>
 			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-mysql</artifactId>
-		</dependency>
+			<artifactId>flyway-sqlserver</artifactId>
+    	</dependency>
 
 		<dependency>
 			<groupId>com.mysql</groupId>
@@ -111,6 +112,11 @@
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</path>
+						<path>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>6.4.4.Final</version>
+						</path>
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
@@ -124,26 +130,6 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.bsc.maven</groupId>
-				<artifactId>maven-processor-plugin</artifactId>
-				<version>5.0-rc2</version>
-				<executions>
-					<execution>
-					<id>process</id>
-					<goals>
-						<goal>process</goal>
-					</goals>
-					<phase>generate-sources</phase>
-					</execution>
-				</executions>
-				<configuration>
-					<processors>
-						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-					</processors>
 				</configuration>
 			</plugin>
 		</plugins>

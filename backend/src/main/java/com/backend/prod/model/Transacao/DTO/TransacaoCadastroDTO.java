@@ -1,4 +1,4 @@
-package com.backend.prod.model.Transacao.DTO;
+package com.backend.prod.model.transacao.DTO;
 
 import java.math.BigDecimal;
 import java.sql.Date;

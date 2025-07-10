@@ -1,9 +1,9 @@
-package com.backend.prod.model.Transacao.DTO;
+package com.backend.prod.model.transacao.DTO;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import com.backend.prod.model.Transacao.Transacao;
+import com.backend.prod.model.transacao.Transacao;
 
 public record TransacaoListagemDTO(
     Long id,
