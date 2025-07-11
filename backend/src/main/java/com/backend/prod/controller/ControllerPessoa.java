@@ -29,6 +29,8 @@ public class ControllerPessoa {
     @Autowired
     private PessoaRepository repository;
 
+    //Endpoint's de CRUD básico
+
     @GetMapping
     @Transactional
     public ResponseEntity<List<PessoaListagemDTO>> listar(){ 
@@ -57,4 +59,6 @@ public class ControllerPessoa {
         
         return ResponseEntity.ok(new PessoaResponseDTO(Pessoa));
     }
+
+    
 }

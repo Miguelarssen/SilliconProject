@@ -50,6 +50,8 @@ public class Conta{
     private Date dataCriacao;
     private Boolean ativo;
 
+    private String senha;
+
     public void bloqueia(@Valid ContaBloqueiaDTO dados) {
         this.ativo = false;
     }

@@ -99,11 +99,6 @@
 			<version>6.4.4.Final</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.github.danielfariati</groupId>
-			<artifactId>hibernate-validator-pt-br</artifactId>
-			<version>1.0.0</version>
-		</dependency>
 
 	</dependencies>
 

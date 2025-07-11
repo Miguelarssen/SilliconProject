@@ -4,8 +4,6 @@ import java.sql.Date;
 
 import com.backend.prod.model.pessoa.DTO.PessoaAtualizaDTO;
 import com.backend.prod.model.pessoa.DTO.PessoaCadastroDTO;
-import com.danielfariati.annotation.CPF;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,8 +34,6 @@ public class Pessoa {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-
-    @CPF(message = "CPF Inválido", required = true)
     private String cpf;
     private Date nascimento;
 

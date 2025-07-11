@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/contas")
 public class ControllerConta {
-    
+
     @Autowired
     private ContaRepository repository;
 
@@ -56,5 +56,32 @@ public class ControllerConta {
         conta.bloqueia(dados);
         
         return ResponseEntity.ok(new ContaResponseDTO(conta));
+    }
+
+    
+    //Endpoint's de regra de negócio
+
+    @PostMapping("/deposito")
+    @Transactional
+    public ResponseEntity<ContaResponseDTO> depositar(@RequestBody @Valid ContaResponseDTO dados) {
+        throw new UnsupportedOperationException("Não implementado ainda");
+    }
+
+    @GetMapping("/saldo")
+    @Transactional
+    public ResponseEntity<ContaResponseDTO> retornoSaldo(@RequestBody @Valid ContaResponseDTO dados) {
+        throw new UnsupportedOperationException("Não implementado ainda");
+    }
+
+    @PostMapping("/saque")
+    @Transactional
+    public ResponseEntity<ContaResponseDTO> saque(@RequestBody @Valid ContaResponseDTO dados) {
+        throw new UnsupportedOperationException("Não implementado ainda");
+    }
+
+    @PostMapping("/extrato")
+    @Transactional
+    public ResponseEntity<ContaResponseDTO> extrato(@RequestBody @Valid ContaResponseDTO dados) {
+        throw new UnsupportedOperationException("Não implementado ainda");
     }
 }
