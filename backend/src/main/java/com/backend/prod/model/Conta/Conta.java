@@ -5,6 +5,9 @@ import java.sql.Date;
 
 import com.backend.prod.model.conta.DTO.ContaBloqueiaDTO;
 import com.backend.prod.model.conta.DTO.ContaCadastroDTO;
+import com.backend.prod.model.conta.DTO.SaldoDTO;
+import com.backend.prod.model.conta.DTO.SaqueDTO;
+import com.backend.prod.model.conta.DTO.depositoDTO;
 import com.backend.prod.model.pessoa.Pessoa;
 
 import jakarta.persistence.Entity;
@@ -20,6 +23,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Table(name = "conta")
 @Entity(name = "contas")
@@ -54,6 +59,38 @@ public class Conta{
 
     public void bloqueia(@Valid ContaBloqueiaDTO dados) {
         this.ativo = false;
+    }
+
+    public void depositar(BigDecimal valor) {
+        if (!this.ativo) {
+            throw new IllegalStateException("Conta bloqueada");
+        }
+        if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Valor de depósito inválido");
+        }
+        this.saldo = this.saldo.add(valor);
+    }
+
+    public void sacar(SaqueDTO dados){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if (!this.ativo){
+            throw new IllegalStateException("Conta Bloquada");
+        }
+
+        if (this.saldo.subtract(dados.valor()).compareTo(BigDecimal.ZERO) < 0) {        
+            throw new IllegalArgumentException("Saldo insuficiente");
+        }
+
+        if(!encoder.matches(dados.senha(), this.senha)){
+            throw new IllegalArgumentException("Senha incorreta");
+        }
+
+        this.saldo.subtract(dados.valor());
+    }
+
+    public void saldo(SaldoDTO dados){
+        
     }
 }
 

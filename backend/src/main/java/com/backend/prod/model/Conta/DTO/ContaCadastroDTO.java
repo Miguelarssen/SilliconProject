@@ -8,6 +8,7 @@ public record ContaCadastroDTO(
     BigDecimal saldo,
     BigDecimal limiteSaqueDiario,
     Integer tipoConta,
+    String senha,
     Date dataCriacao,
     Boolean ativo
 ) {
