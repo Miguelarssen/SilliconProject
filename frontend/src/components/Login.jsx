@@ -4,18 +4,23 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Eye, EyeOff, LogIn } from 'lucide-react'
+import { useLogin } from '../hooks/useLogin' 
 
 export default function Login({ onLogin, onNavigateToRegister }) {
   const [formData, setFormData] = useState({
-    accountNumber: '',
-    password: ''
+    email: '',   // use "email" pois o backend espera isso no LoginDTO
+    senha: ''
   })
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [showSenha, setShowSenha] = useState(false)
+
+  const { login, loading, error, isLoggedIn } = useLogin()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsLoading(true)
+    const result = await login({ email: formData.email, senha: formData.senha })
+    if (result) {
+      onLogin(result)
+    }
   }
 
   const handleChange = (e) => {
@@ -37,27 +42,27 @@ export default function Login({ onLogin, onNavigateToRegister }) {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="accountNumber">Número da Conta</Label>
+              <Label htmlFor="email">E-mail</Label>
               <Input
-                id="accountNumber"
-                name="accountNumber"
-                type="text"
-                placeholder="Digite o número da sua conta"
-                value={formData.accountNumber}
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Digite seu e-mail"
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
+              <Label htmlFor="senha">Senha</Label>
               <div className="relative">
                 <Input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
+                  id="senha"
+                  name="senha"
+                  type={showSenha ? 'text' : 'senha'}
                   placeholder="Digite sua senha"
-                  value={formData.password}
+                  value={formData.senha}
                   onChange={handleChange}
                   required
                 />
@@ -66,9 +71,9 @@ export default function Login({ onLogin, onNavigateToRegister }) {
                   variant="ghost"
                   size="sm"
                   className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowSenha(!showSenha)}
                 >
-                  {showPassword ? (
+                  {showSenha ? (
                     <EyeOff className="h-4 w-4" />
                   ) : (
                     <Eye className="h-4 w-4" />
@@ -80,9 +85,9 @@ export default function Login({ onLogin, onNavigateToRegister }) {
             <Button 
               type="submit" 
               className="w-full" 
-              disabled={isLoading}
+              disabled={loading}
             >
-              {isLoading ? (
+              {loading ? (
                 'Entrando...'
               ) : (
                 <>
@@ -92,6 +97,8 @@ export default function Login({ onLogin, onNavigateToRegister }) {
               )}
             </Button>
           </form>
+
+          {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 
           <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">
@@ -110,4 +117,3 @@ export default function Login({ onLogin, onNavigateToRegister }) {
     </div>
   )
 }
-
