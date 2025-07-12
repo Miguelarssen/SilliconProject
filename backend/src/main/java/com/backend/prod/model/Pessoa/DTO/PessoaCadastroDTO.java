@@ -5,6 +5,7 @@ import java.sql.Date;
 public record PessoaCadastroDTO(    
     String nome,
     String cpf,
-    Date nascimento
+    Date nascimento,
+    String email
 ) {  
 }

@@ -9,4 +9,5 @@ import com.backend.prod.model.pessoa.Pessoa;
 public interface PessoaRepository extends JpaRepository<Pessoa, Long>, JpaSpecificationExecutor<Pessoa>{ 
     
     List<Pessoa> findAll();
+    Pessoa findByEmail(String email);
 } 

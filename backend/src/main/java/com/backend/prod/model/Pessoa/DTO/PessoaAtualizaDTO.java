@@ -10,7 +10,9 @@ public record PessoaAtualizaDTO(
     Long id,
     String nome,
     String cpf,
-    Date nascimento
+    Date nascimento,
+    String email
+
 ){
     
 }

@@ -5,6 +5,7 @@ import java.sql.Date;
 
 import com.backend.prod.model.conta.DTO.ContaBloqueiaDTO;
 import com.backend.prod.model.conta.DTO.ContaCadastroDTO;
+import com.backend.prod.model.conta.DTO.LoginDTO;
 import com.backend.prod.model.conta.DTO.SaldoDTO;
 import com.backend.prod.model.conta.DTO.SaqueDTO;
 import com.backend.prod.model.conta.DTO.depositoDTO;
@@ -54,7 +55,7 @@ public class Conta{
     private Integer tipoConta;
     private Date dataCriacao;
     private Boolean ativo;
-
+    
     private String senha;
 
     public void bloqueia(@Valid ContaBloqueiaDTO dados) {
@@ -91,6 +92,17 @@ public class Conta{
 
     public void saldo(SaldoDTO dados){
         
+    }
+
+    public boolean login(LoginDTO dados){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if(!encoder.matches(dados.senha(), this.senha)){
+            throw new IllegalArgumentException("Senha incorreta");
+        }
+
+        return true;
+
     }
 }
 

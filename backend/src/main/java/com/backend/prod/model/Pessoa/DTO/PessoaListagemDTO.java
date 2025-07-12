@@ -8,14 +8,18 @@ public record PessoaListagemDTO(
     Long id,
     String nome,
     String cpf,
-    Date nascimento
+    Date nascimento,
+    String email
+
 ) {
     public PessoaListagemDTO(Pessoa pessoa){
         this(
             pessoa.getId(),
             pessoa.getNome(),
             pessoa.getCpf(),
-            pessoa.getNascimento()
+            pessoa.getNascimento(),
+            pessoa.getEmail()
+
         );
     }
 }

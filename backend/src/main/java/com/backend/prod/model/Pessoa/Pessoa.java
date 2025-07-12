@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,6 +31,7 @@ public class Pessoa {
         this.nome = dados.nome();
         this.cpf = dados.cpf();
         this.nascimento = dados.nascimento();
+        this.email = dados.email();
     }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +39,10 @@ public class Pessoa {
     private String nome;
     private String cpf;
     private Date nascimento;
+
+    @NotNull
+    @Email 
+    private String email;
 
     public void editaPessoa(@Valid PessoaAtualizaDTO dados) {
         if (dados.nome() != null) {

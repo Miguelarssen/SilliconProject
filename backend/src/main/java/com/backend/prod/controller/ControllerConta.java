@@ -20,6 +20,7 @@ import com.backend.prod.model.pessoa.Pessoa;
 import com.backend.prod.model.conta.DTO.ContaCadastroDTO;
 import com.backend.prod.model.conta.DTO.ContaListagemDTO;
 import com.backend.prod.model.conta.DTO.ContaResponseDTO;
+import com.backend.prod.model.conta.DTO.LoginDTO;
 import com.backend.prod.model.conta.DTO.SaldoDTO;
 import com.backend.prod.model.conta.DTO.SaqueDTO;
 import com.backend.prod.repository.ContaRepository;
@@ -29,6 +30,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/contas")
@@ -107,4 +110,13 @@ public class ControllerConta {
     public ResponseEntity<ContaResponseDTO> extrato(@RequestBody @Valid ContaResponseDTO dados) {
         throw new UnsupportedOperationException("Não implementado ainda");
     }
+
+    @PostMapping("/login")
+    public boolean getMethodName(@RequestBody @Valid LoginDTO dados) {
+        var pessoa = PessoaRepository.findByEmail(dados.email());
+        var conta = repository.findByPessoa(pessoa);
+
+        return conta.login(dados);
+    }
+    
 }
