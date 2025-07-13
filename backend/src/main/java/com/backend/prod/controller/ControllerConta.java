@@ -66,9 +66,13 @@ public class ControllerConta {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         Pessoa pessoa = PessoaRepository.getReferenceById(dados.pessoaId());
+
         conta.setPessoa(pessoa);
         conta.setSaqueDiarioAtual(new BigDecimal("0.00"));
         conta.setSenha(encoder.encode(dados.senha()));
+        conta.setSaldo(new BigDecimal("0.00")); 
+        conta.setDataCriacao(new Date(System.currentTimeMillis()));
+        conta.setAtivo(true);
 
         repository.save(conta);
 

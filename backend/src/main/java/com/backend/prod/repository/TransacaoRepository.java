@@ -12,4 +12,5 @@ public interface TransacaoRepository extends JpaRepository<Transacao, Long>, Jpa
     
     List<Transacao> findAll();
     List<Transacao> findByConta(Conta conta);
+
 } 

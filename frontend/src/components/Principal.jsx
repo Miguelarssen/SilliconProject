@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -12,17 +12,23 @@ import {
   CreditCard,
   DollarSign
 } from 'lucide-react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import { useTransacao } from '@/hooks/useTransacao'
+import Transacao from './Transacao'
 
-export default function Principal({ user, onLogout, onNavigateToSaque, onNavigateToDeposito}) {
-
+export default function Principal({ user, onLogout }) {
   const navigate = useNavigate();
+  const { transacoes } = useTransacao(user?.id);
+  const [showBalance, setShowBalance] = useState(true);
 
   function onNavigateToDeposito() {
     navigate('/deposito', { state: { user } });
   }
 
-  const [showBalance, setShowBalance] = useState(true)
+  function onNavigateToSaque() {
+    navigate('/saque', { state: { user } });
+  }
+
   const formatCurrency = (value) => {
     if (value === null || value === undefined || isNaN(value)) {
       return 'R$ 0,00'
@@ -42,8 +48,7 @@ export default function Principal({ user, onLogout, onNavigateToSaque, onNavigat
 
   const getTitularName = () => {
     if (!user) return 'Carregando...'
-    
-    return  user.nome
+    return user.nome
   }
 
   const getSaldo = () => {
@@ -175,9 +180,7 @@ export default function Principal({ user, onLogout, onNavigateToSaque, onNavigat
                 Realize suas operações bancárias
               </CardDescription>
             </CardHeader>
-
             <CardContent>
-
               <div className="grid gap-4 md:grid-cols-2">
                 <Button
                   size="lg"
@@ -198,10 +201,9 @@ export default function Principal({ user, onLogout, onNavigateToSaque, onNavigat
                   <span>Sacar</span>
                 </Button>
               </div>
-
             </CardContent>
           </Card>
-
+          
           <Card className="md:col-span-2 lg:col-span-3">
             <CardHeader>
               <CardTitle className="text-lg">Últimas Atividades</CardTitle>
@@ -209,10 +211,11 @@ export default function Principal({ user, onLogout, onNavigateToSaque, onNavigat
                 Suas transações mais recentes
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="text-center py-8 text-muted-foreground">
-                <p>Nenhuma transação encontrada</p>
-                <p className="text-sm">Suas próximas movimentações aparecerão aqui</p>
+            <CardContent className="max-h-60 overflow-y-auto">
+              <div className="space-y-4">
+                {transacoes.map((transacao) => (
+                  <Transacao key={transacao.id} transacao={transacao} />
+                ))}
               </div>
             </CardContent>
           </Card>

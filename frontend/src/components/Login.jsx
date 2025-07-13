@@ -8,13 +8,19 @@ import { useLogin } from '../hooks/useLogin'
 import { useNavigate } from 'react-router-dom'
 
 export default function Login({ onLoginSuccess, onNavigateToCadastro }) {
+
+  const navigate = useNavigate();
+
+  function onNavigateToCadastro() {
+    navigate('/cadastro');
+  }
+
   const [formData, setFormData] = useState({
     email: '',  
     senha: ''
   })
   const [showSenha, setShowSenha] = useState(false)
 
-  const navigate = useNavigate()
   const { login, loading, error } = useLogin()
   
   const handleSubmit = async (e) => {
@@ -27,7 +33,7 @@ export default function Login({ onLoginSuccess, onNavigateToCadastro }) {
 
     if (userData) {
       onLoginSuccess(userData)
-      navigate('/principal')
+      navigate('/principal', { state: { userData } })
     }
   }
 
@@ -108,20 +114,18 @@ export default function Login({ onLoginSuccess, onNavigateToCadastro }) {
 
           {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 
-          {onNavigateToCadastro && (
-            <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Não tem uma conta?{' '}
-                <Button
-                  variant="link"
-                  className="p-0 h-auto font-semibold text-primary"
-                  onClick={onNavigateToCadastro}
-                >
-                  Cadastre-se aqui
-                </Button>
-              </p>
-            </div>
-          )}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-muted-foreground">
+              Não tem uma conta?{' '}
+              <Button
+                variant="link"
+                className="p-0 h-auto font-semibold text-primary"
+                onClick={onNavigateToCadastro}
+              >
+                Cadastre-se aqui
+              </Button>
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>
