@@ -1,0 +1,3 @@
+ALTER TABLE Contas
+ADD saqueDiarioAtual DECIMAL(18, 2) NOT NULL;
+GO

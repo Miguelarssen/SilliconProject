@@ -8,6 +8,8 @@ import com.backend.prod.model.transacao.DTO.TransacaoAtualizaDTO;
 import com.backend.prod.model.transacao.DTO.TransacaoCadastroDTO;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,6 +44,9 @@ public class Transacao {
     @JoinColumn(name = "conta_id")
     private Conta conta;
     private BigDecimal valor;
+
+    @Enumerated(EnumType.STRING)
+    private tipoTransacao tipoTransacao;
     private Date dataTransacao;
 
     public void editaTransacao(@Valid TransacaoAtualizaDTO dados) {

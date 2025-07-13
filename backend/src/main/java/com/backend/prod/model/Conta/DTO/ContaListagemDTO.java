@@ -10,6 +10,7 @@ public record ContaListagemDTO(
     Long pessoaId,
     BigDecimal saldo,
     BigDecimal limiteSaqueDiario,
+    BigDecimal saqueDiarioAtual,
     Integer tipoConta,
     Date dataCriacao,
     Boolean ativo
@@ -20,6 +21,7 @@ public record ContaListagemDTO(
             conta.getPessoa().getId(),
             conta.getSaldo(),
             conta.getLimiteSaqueDiario(),
+            conta.getSaqueDiarioAtual(),
             conta.getTipoConta(),
             conta.getDataCriacao(),
             conta.getAtivo()

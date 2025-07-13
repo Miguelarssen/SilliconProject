@@ -7,6 +7,8 @@ public record LoginDTO(
     String email,
 
     @NotNull
-    String senha
+    String senha,
+    String nome,
+    String saldo
 ) {  
 }

@@ -10,6 +10,8 @@ import com.backend.prod.model.conta.DTO.SaldoDTO;
 import com.backend.prod.model.conta.DTO.SaqueDTO;
 import com.backend.prod.model.conta.DTO.depositoDTO;
 import com.backend.prod.model.pessoa.Pessoa;
+import com.backend.prod.model.transacao.Transacao;
+import com.backend.prod.repository.TransacaoRepository;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.backend.prod.repository.TransacaoRepository;
 
 @Table(name = "conta")
 @Entity(name = "contas")
@@ -34,6 +37,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+
 public class Conta{
     
     public Conta(ContaCadastroDTO dados) {
@@ -52,6 +56,9 @@ public class Conta{
     private Pessoa pessoa;
     private BigDecimal saldo;
     private BigDecimal limiteSaqueDiario;
+    
+    //implementar atributo para detecção do limiteSaqueDiario
+    private BigDecimal saqueDiarioAtual;
     private Integer tipoConta;
     private Date dataCriacao;
     private Boolean ativo;
@@ -63,12 +70,14 @@ public class Conta{
     }
 
     public void depositar(BigDecimal valor) {
+
         if (!this.ativo) {
             throw new IllegalStateException("Conta bloqueada");
         }
         if (valor == null || valor.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Valor de depósito inválido");
         }
+
         this.saldo = this.saldo.add(valor);
     }
 
@@ -83,11 +92,20 @@ public class Conta{
             throw new IllegalArgumentException("Saldo insuficiente");
         }
 
+        if (this.saqueDiarioAtual.add(dados.valor()).compareTo(this.limiteSaqueDiario) > 0) {
+            throw new IllegalArgumentException("Limite de saque atingido");
+        }
+
+        if (dados.valor() == null || dados.valor().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Valor de saque inválido");
+        }
+
         if(!encoder.matches(dados.senha(), this.senha)){
             throw new IllegalArgumentException("Senha incorreta");
         }
 
-        this.saldo.subtract(dados.valor());
+        this.saqueDiarioAtual = this.saqueDiarioAtual.add(dados.valor());
+        this.saldo = this.saldo.subtract(dados.valor());
     }
 
     public void saldo(SaldoDTO dados){
