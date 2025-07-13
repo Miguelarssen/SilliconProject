@@ -1,25 +1,33 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Eye, EyeOff, LogIn } from 'lucide-react'
 import { useLogin } from '../hooks/useLogin' 
+import { useNavigate } from 'react-router-dom'
 
-export default function Login({ onLogin, onNavigateToRegister }) {
+export default function Login({ onLoginSuccess, onNavigateToRegister }) {
   const [formData, setFormData] = useState({
-    email: '',   // use "email" pois o backend espera isso no LoginDTO
+    email: '',  
     senha: ''
   })
   const [showSenha, setShowSenha] = useState(false)
 
-  const { login, loading, error, isLoggedIn } = useLogin()
-
+  const navigate = useNavigate()
+  const { login, loading, error } = useLogin()
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const result = await login({ email: formData.email, senha: formData.senha })
-    if (result) {
-      onLogin(result)
+    
+    const userData = await login({ 
+      email: formData.email,
+      senha: formData.senha
+    })
+
+    if (userData) {
+      onLoginSuccess(userData)
+      navigate('/principal')
     }
   }
 
@@ -60,7 +68,7 @@ export default function Login({ onLogin, onNavigateToRegister }) {
                 <Input
                   id="senha"
                   name="senha"
-                  type={showSenha ? 'text' : 'senha'}
+                  type={showSenha ? 'text' : 'password'}
                   placeholder="Digite sua senha"
                   value={formData.senha}
                   onChange={handleChange}
@@ -100,18 +108,20 @@ export default function Login({ onLogin, onNavigateToRegister }) {
 
           {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-muted-foreground">
-              Não tem uma conta?{' '}
-              <Button
-                variant="link"
-                className="p-0 h-auto font-semibold text-primary"
-                onClick={onNavigateToRegister}
-              >
-                Cadastre-se aqui
-              </Button>
-            </p>
-          </div>
+          {onNavigateToRegister && (
+            <div className="mt-6 text-center">
+              <p className="text-sm text-muted-foreground">
+                Não tem uma conta?{' '}
+                <Button
+                  variant="link"
+                  className="p-0 h-auto font-semibold text-primary"
+                  onClick={onNavigateToRegister}
+                >
+                  Cadastre-se aqui
+                </Button>
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
