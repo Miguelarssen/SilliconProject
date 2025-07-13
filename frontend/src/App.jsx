@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Principal from './components/Principal';
+import Deposito from './components/Deposito';
 import './App.css';
 
 function ProtectedRoute({ user, children }) {
@@ -51,11 +52,21 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/deposito"
+          element={
+            <ProtectedRoute user={user}>
+              <Deposito user={user} onLogout={handleLogout} />
+            </ProtectedRoute>
+          }
+        />
         
         <Route
           path="/"
           element={<Navigate to="/principal" />}
         />
+
       </Routes>
     </Router>
   );

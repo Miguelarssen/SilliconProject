@@ -7,7 +7,7 @@ import { Eye, EyeOff, LogIn } from 'lucide-react'
 import { useLogin } from '../hooks/useLogin' 
 import { useNavigate } from 'react-router-dom'
 
-export default function Login({ onLoginSuccess, onNavigateToRegister }) {
+export default function Login({ onLoginSuccess, onNavigateToCadastro }) {
   const [formData, setFormData] = useState({
     email: '',  
     senha: ''
@@ -108,14 +108,14 @@ export default function Login({ onLoginSuccess, onNavigateToRegister }) {
 
           {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 
-          {onNavigateToRegister && (
+          {onNavigateToCadastro && (
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
                 Não tem uma conta?{' '}
                 <Button
                   variant="link"
                   className="p-0 h-auto font-semibold text-primary"
-                  onClick={onNavigateToRegister}
+                  onClick={onNavigateToCadastro}
                 >
                   Cadastre-se aqui
                 </Button>

@@ -12,17 +12,17 @@ import {
   CreditCard,
   DollarSign
 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom';
 
-export default function Principal({ user, onLogout, onNavigateToWithdraw, onNavigateToDeposit }) {
+export default function Principal({ user, onLogout, onNavigateToSaque, onNavigateToDeposito}) {
+
+  const navigate = useNavigate();
+
+  function onNavigateToDeposito() {
+    navigate('/deposito', { state: { user } });
+  }
+
   const [showBalance, setShowBalance] = useState(true)
-
-  useEffect(() => {
-    console.log('Dados do usuário recebidos:', user)
-    if (user) {
-      console.log('Propriedades disponíveis:', Object.keys(user))
-    }
-  }, [user])
-
   const formatCurrency = (value) => {
     if (value === null || value === undefined || isNaN(value)) {
       return 'R$ 0,00'
@@ -175,26 +175,30 @@ export default function Principal({ user, onLogout, onNavigateToWithdraw, onNavi
                 Realize suas operações bancárias
               </CardDescription>
             </CardHeader>
+
             <CardContent>
+
               <div className="grid gap-4 md:grid-cols-2">
                 <Button
                   size="lg"
                   className="h-20 flex-col space-y-2"
-                  onClick={onNavigateToDeposit}
+                  onClick={onNavigateToDeposito}
                 >
                   <ArrowDownCircle className="h-8 w-8" />
                   <span>Depositar</span>
                 </Button>
+                
                 <Button
                   size="lg"
                   variant="outline"
                   className="h-20 flex-col space-y-2"
-                  onClick={onNavigateToWithdraw}
+                  onClick={onNavigateToSaque}
                 >
                   <ArrowUpCircle className="h-8 w-8" />
                   <span>Sacar</span>
                 </Button>
               </div>
+
             </CardContent>
           </Card>
 
