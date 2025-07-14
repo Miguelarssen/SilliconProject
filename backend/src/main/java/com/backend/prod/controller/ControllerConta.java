@@ -112,9 +112,10 @@ public class ControllerConta {
 
     @GetMapping("/saldo")
     @Transactional
-    public ResponseEntity<ContaResponseDTO> retornoSaldo(@RequestBody @Valid SaldoDTO dados){
+    public ResponseEntity<SaldoDTO> retornoSaldo(@RequestBody @Valid SaldoDTO dados) {
         var conta = repository.getReferenceById(dados.id());
-        return ResponseEntity.ok().build();
+        var saldo = conta.getSaldo();
+        return ResponseEntity.ok(new SaldoDTO(conta.getId(), saldo));
     }
 
     @PostMapping("/saque")
