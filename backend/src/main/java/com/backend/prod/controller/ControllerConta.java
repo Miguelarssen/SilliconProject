@@ -50,6 +50,8 @@ public class ControllerConta {
     private TransacaoRepository TransacaoRepository;
 
 
+    //endpoints de crud basico
+
     @GetMapping
     @Transactional
     public ResponseEntity<List<ContaListagemDTO>> listar(){ 

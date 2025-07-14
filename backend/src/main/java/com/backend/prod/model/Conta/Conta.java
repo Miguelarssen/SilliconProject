@@ -8,10 +8,8 @@ import com.backend.prod.model.conta.DTO.ContaCadastroDTO;
 import com.backend.prod.model.conta.DTO.LoginDTO;
 import com.backend.prod.model.conta.DTO.SaldoDTO;
 import com.backend.prod.model.conta.DTO.SaqueDTO;
-import com.backend.prod.model.conta.DTO.depositoDTO;
 import com.backend.prod.model.pessoa.Pessoa;
-import com.backend.prod.model.transacao.Transacao;
-import com.backend.prod.repository.TransacaoRepository;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,8 +25,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import com.backend.prod.repository.TransacaoRepository;
 
 @Table(name = "conta")
 @Entity(name = "contas")

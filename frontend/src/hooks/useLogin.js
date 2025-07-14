@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_URL = 'http://localhost:8080';
+const API_URL = 'http://localhost:8080/contas/login';
 
 export function useLogin() {
   const [loading, setLoading] = useState(false);
@@ -12,7 +12,7 @@ export function useLogin() {
     setError(null);
 
     try {
-      const response = await fetch(API_URL+"/contas/login", {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

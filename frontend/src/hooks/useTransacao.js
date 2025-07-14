@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const API_URL = 'http://localhost:8080';
+const API_URL = 'http://localhost:8080/transacoes';
 
 export function useTransacao(userId) {
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ export function useTransacao(userId) {
       setError(null);
 
       try {
-        const response = await fetch(`${API_URL}/transacoes/${userId}`);
+        const response = await fetch(`${API_URL}/${userId}`);
 
         if (!response.ok) {
           throw new Error('Falha ao buscar transações. Status: ' + response.status);

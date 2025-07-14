@@ -52,10 +52,7 @@ public class ControllerTransacao {
         }
 
         var conta = optionalConta.get();
-        var transacoes = repository.findByConta(conta)
-                                .stream()
-                                .map(TransacaoListagemDTO::new)
-                                .toList();
+        var transacoes = repository.findByConta(conta).stream().map(TransacaoListagemDTO::new).toList();
         
         return ResponseEntity.ok(transacoes);
     }
